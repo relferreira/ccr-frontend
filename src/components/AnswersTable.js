@@ -1,14 +1,11 @@
 import React from 'react';
 import {
-  Paper,
   TableContainer,
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
-  Box,
-  TextField,
 } from '@material-ui/core';
 
 function AnswersTable({ answers }) {

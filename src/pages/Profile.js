@@ -10,12 +10,12 @@ import { ResponsiveLine } from '@nivo/line';
 
 function Profile({ phone }) {
   const { data: user } = useSWR(
-    `http://localhost:8080/users/${phone}`,
+    `${process.env.REACT_APP_API_URL}/users/${phone}`,
     fetcher
   );
 
   const { data: answers } = useSWR(
-    user ? `http://localhost:8080/answers?name=${user.name}` : null,
+    user ? `${process.env.REACT_APP_API_URL}/answers?name=${user.name}` : null,
     fetcher
   );
 

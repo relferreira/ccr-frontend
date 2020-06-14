@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { config } from 'dotenv';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -25,6 +26,9 @@ import Drivers from './pages/Drivers';
 import Dashboard from './pages/Dashboard';
 import Score from './pages/Score';
 import Profile from './pages/Profile';
+
+// get environment variables to process.env object
+config();
 
 const drawerWidth = 240;
 

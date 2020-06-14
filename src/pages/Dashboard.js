@@ -12,7 +12,6 @@ import {
   Avatar,
   ListItemAvatar,
   ListItemText,
-  Typography,
   Divider,
 } from '@material-ui/core';
 import useSWR from 'swr';
@@ -20,7 +19,10 @@ import useSWR from 'swr';
 import { fetcher } from '../utils/fetcher';
 
 function Dashboard() {
-  const { data: users } = useSWR(`http://localhost:8080/users`, fetcher);
+  const { data: users } = useSWR(
+    `${process.env.REACT_APP_API_URL}/users`,
+    fetcher
+  );
 
   let data = [
     {

@@ -16,7 +16,7 @@ import { fetcher } from '../utils/fetcher';
 function Drivers() {
   const [name, setName] = useState('');
   const { data: answers } = useSWR(
-    name ? `http://localhost:8080/answers?name=${name}` : null,
+    name ? `${process.env.REACT_APP_API_URL}/answers?name=${name}` : null,
     fetcher
   );
 

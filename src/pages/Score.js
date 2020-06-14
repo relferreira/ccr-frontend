@@ -15,7 +15,10 @@ import useSWR from 'swr';
 import { fetcher } from '../utils/fetcher';
 
 function Score() {
-  const { data: users } = useSWR(`http://localhost:8080/users`, fetcher);
+  const { data: users } = useSWR(
+    `${process.env.REACT_APP_API_URL}/users`,
+    fetcher
+  );
   let data = [];
 
   if (users)
