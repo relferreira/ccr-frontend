@@ -26,6 +26,7 @@ import Drivers from './pages/Drivers';
 import Dashboard from './pages/Dashboard';
 import Score from './pages/Score';
 import Profile from './pages/Profile';
+import Map from './pages/Map';
 
 // get environment variables to process.env object
 config();
@@ -129,7 +130,7 @@ export default function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Rota da Saúde
+            VidaQueSegue
           </Typography>
         </Toolbar>
       </AppBar>
@@ -175,6 +176,12 @@ export default function App() {
             </ListItemIcon>
             <ListItemText primary="Pontuação" />
           </ListItem>
+          {/* <ListItem button component={Link} to="/map" key="Map">
+            <ListItemIcon>
+              <ScoreIcon />
+            </ListItemIcon>
+            <ListItemText primary="Mapa" />
+          </ListItem> */}
         </List>
       </Drawer>
       <main className={classes.content}>
@@ -184,6 +191,7 @@ export default function App() {
           <Drivers path="/drivers" />
           <Score path="/score" />
           <Profile path="/profile/:phone" />
+          <Map path="/map" />
         </Router>
       </main>
     </div>
