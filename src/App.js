@@ -17,11 +17,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import ScoreIcon from '@material-ui/icons/Score';
 import { Router, Link } from '@reach/router';
 
 import './App.css';
 import Drivers from './pages/Drivers';
 import Dashboard from './pages/Dashboard';
+import Score from './pages/Score';
 
 const drawerWidth = 240;
 
@@ -162,6 +164,12 @@ export default function App() {
             </ListItemIcon>
             <ListItemText primary="Motoristas" />
           </ListItem>
+          <ListItem button component={Link} to="/score" key="Scores">
+            <ListItemIcon>
+              <ScoreIcon />
+            </ListItemIcon>
+            <ListItemText primary="Pontuação" />
+          </ListItem>
         </List>
       </Drawer>
       <main className={classes.content}>
@@ -169,6 +177,7 @@ export default function App() {
         <Router>
           <Dashboard path="/" />
           <Drivers path="/drivers" />
+          <Score path="/score" />
         </Router>
       </main>
     </div>
