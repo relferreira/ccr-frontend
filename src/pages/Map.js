@@ -10,13 +10,12 @@ class Map extends Component {
       lat: -19.912998,
       lng: -43.940933,
     },
-    zoom: 11,
+    zoom: 15,
   };
 
   render() {
-    console.log(this.props);
     return (
-      <Box height="500px">
+      <Box height="700px">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAP }}
           defaultCenter={this.props.center}
