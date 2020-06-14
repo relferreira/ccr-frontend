@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Paper,
   TableContainer,
@@ -10,8 +10,16 @@ import {
   Box,
   TextField,
 } from '@material-ui/core';
+import useSWR from 'swr';
+import { fetcher } from '../utils/fetcher';
 
 function Drivers() {
+  const [name, setName] = useState('');
+  const { data: answers } = useSWR(
+    name ? `http://localhost:8080/answers?name=${name}` : null,
+    fetcher
+  );
+
   return (
     <div>
       <Paper>
@@ -19,33 +27,47 @@ function Drivers() {
           <Box component="h1" p={0} m={0} flex={1}>
             Motoristas
           </Box>
-          <TextField id="filled-basic" label="Nome" variant="filled" />
+          <TextField
+            id="filled-basic"
+            label="Nome"
+            variant="filled"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
         </Box>
-        <TableContainer>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Telefone</TableCell>
-                <TableCell align="right">Pergunta</TableCell>
-                <TableCell align="right">Resposta</TableCell>
-                <TableCell align="right">Data</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {/* {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
+        {!answers && (
+          <Box display="flex" alignItems="center" justifyContent="center" p={2}>
+            <h2>Faça uma pesquisa pelo nome do motorista</h2>
+          </Box>
+        )}
+        {answers && (
+          <TableContainer>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Telefone</TableCell>
+                  <TableCell>Pergunta</TableCell>
+                  <TableCell>Resposta</TableCell>
+                  <TableCell>Data</TableCell>
                 </TableRow>
-              ))} */}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {answers.map((answer) => (
+                  <TableRow key={answer.phone + answer.date}>
+                    <TableCell component="th" scope="row">
+                      {answer.phone}
+                    </TableCell>
+                    <TableCell>{answer.question}</TableCell>
+                    <TableCell>{answer.answer}</TableCell>
+                    <TableCell>
+                      {new Date(answer.date * 1000).toLocaleString()}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
       </Paper>
     </div>
   );
