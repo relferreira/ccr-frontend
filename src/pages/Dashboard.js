@@ -276,8 +276,8 @@ function Dashboard() {
                       <Avatar>{user.name[0].toUpperCase()}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary={user.name}
-                      secondary={<React.Fragment>300 pontos</React.Fragment>}
+                      primary={`${user.name} ${user['last_name']}`}
+                      secondary={<React.Fragment>{user.score}</React.Fragment>}
                     />
                   </ListItem>,
                   <Divider
