@@ -24,6 +24,7 @@ import './App.css';
 import Drivers from './pages/Drivers';
 import Dashboard from './pages/Dashboard';
 import Score from './pages/Score';
+import Profile from './pages/Profile';
 
 const drawerWidth = 240;
 
@@ -178,6 +179,7 @@ export default function App() {
           <Dashboard path="/" />
           <Drivers path="/drivers" />
           <Score path="/score" />
+          <Profile path="/profile/:phone" />
         </Router>
       </main>
     </div>
