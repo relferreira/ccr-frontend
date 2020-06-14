@@ -273,10 +273,7 @@ function Dashboard() {
                 users.map((user) => [
                   <ListItem key={user.phone + 'item'} alignItems="flex-start">
                     <ListItemAvatar>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="/static/images/avatar/1.jpg"
-                      />
+                      <Avatar>{user.name[0].toUpperCase()}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary={user.name}

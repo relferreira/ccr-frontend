@@ -1,7 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 import { config } from 'dotenv';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,6 +23,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import ScoreIcon from '@material-ui/icons/Score';
+import ExploreIcon from '@material-ui/icons/Explore';
 import { Router, Link } from '@reach/router';
 
 import './App.css';
@@ -32,6 +37,23 @@ import Map from './pages/Map';
 config();
 
 const drawerWidth = 240;
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#887ad2',
+      main: '#585189ff',
+      dark: '#272671',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ffc158',
+      main: '#f29025',
+      dark: '#ba6200',
+      contrastText: '#000',
+    },
+  },
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -109,91 +131,93 @@ export default function App() {
   };
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            VidaQueSegue
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>
+              VidaQueSegue
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <ListItem button component={Link} to="/" key="Dashboard">
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem button component={Link} to="/drivers" key="Drivers">
-            <ListItemIcon>
-              <DriveEtaIcon />
-            </ListItemIcon>
-            <ListItemText primary="Motoristas" />
-          </ListItem>
-          <ListItem button component={Link} to="/score" key="Scores">
-            <ListItemIcon>
-              <ScoreIcon />
-            </ListItemIcon>
-            <ListItemText primary="Pontuação" />
-          </ListItem>
-          {/* <ListItem button component={Link} to="/map" key="Map">
-            <ListItemIcon>
-              <ScoreIcon />
-            </ListItemIcon>
-            <ListItemText primary="Mapa" />
-          </ListItem> */}
-        </List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Router>
-          <Dashboard path="/" />
-          <Drivers path="/drivers" />
-          <Score path="/score" />
-          <Profile path="/profile/:phone" />
-          <Map path="/map" />
-        </Router>
-      </main>
-    </div>
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem button component={Link} to="/" key="Dashboard">
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+            <ListItem button component={Link} to="/drivers" key="Drivers">
+              <ListItemIcon>
+                <DriveEtaIcon />
+              </ListItemIcon>
+              <ListItemText primary="Motoristas" />
+            </ListItem>
+            <ListItem button component={Link} to="/score" key="Scores">
+              <ListItemIcon>
+                <ScoreIcon />
+              </ListItemIcon>
+              <ListItemText primary="Pontuação" />
+            </ListItem>
+            <ListItem button component={Link} to="/map" key="Map">
+              <ListItemIcon>
+                <ExploreIcon />
+              </ListItemIcon>
+              <ListItemText primary="Mapa" />
+            </ListItem>
+          </List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Router>
+            <Dashboard path="/" />
+            <Drivers path="/drivers" />
+            <Score path="/score" />
+            <Profile path="/profile/:phone" />
+            <Map path="/map" />
+          </Router>
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }
